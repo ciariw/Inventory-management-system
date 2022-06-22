@@ -1,0 +1,4 @@
+# To ignore:
+Parts.JSON
+.env
+RawPartslistXL/
