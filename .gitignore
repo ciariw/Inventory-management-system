@@ -1,4 +1,7 @@
 # To ignore:
 Parts.JSON
 .env
+venv/*
 RawPartslistXL/
+APIkey.txt
+database.py

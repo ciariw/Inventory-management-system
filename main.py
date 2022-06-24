@@ -21,6 +21,7 @@ PATH = Path(__file__)
 class Inventory:
 
     def __init__(self):
+        self.formatted_query = None
         self.cursor = None
         self.last_query_result = None
         self.connected = False # Default value
@@ -127,7 +128,7 @@ class Inventory:
         alias = ' OR description ILIKE '.join([f"'{x}%'" for x in keyword])
         cursor.execute(f'SELECT * FROM genmaterials WHERE description ILIKE {alias};')
         self.last_query_result = cursor.fetchall()
-        print(self.last_query_result)
+        self.formatted_query = "\n".join([str(x) for x in self.last_query_result])
 
         return self
 
@@ -138,10 +139,7 @@ def main():
     inventory.db_connect("inventory")  # Connect to the database 'inventory'
 
     #inventory.db_validate(inventory.items)
-    # validate that materials json and database entries match
-
-    #inventory.db_item_search({"M"})  # Search for items that contain words in this set
-    inventory.db_exec_cmd("SELECT distinct vendor FROM genmaterials WHERE machine ILIKE 'LAMINATOR';",False)
+    inventory.db_exec_cmd("UPDATE genmaterials SET machine = 'Laminator' WHERE description ILIKE '%lam%' AND machine NOT ILIKE '%lam%';")
     print("\n".join([str(x) for x in inventory.last_query_result]))
     inventory.db_disconnect()  # Disconnect everything and start fresh
 
