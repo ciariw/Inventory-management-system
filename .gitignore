@@ -4,4 +4,6 @@ Parts.JSON
 venv/*
 RawPartslistXL/
 APIkey.txt
-database.py
+database
+RawPartslistXL
+.idea
